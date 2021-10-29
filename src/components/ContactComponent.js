@@ -14,6 +14,7 @@ class Contact extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             firstName: '',
             lastName: '',
@@ -34,25 +35,24 @@ class Contact extends Component {
     }
 
     handleSubmit(values) {
-        console.log("Current state is " + JSON.stringify(values));
-        alert("Current state is " + JSON.stringify(this.state));
+        console.log("Current state is: " + JSON.stringify(values));
+        alert("Current state is: " + JSON.stringify(values));
     }
 
     render() {
 
         return (
-            <div className="container" >
+            <div className="container">
                 <div className="row">
-                        <div className="col">
-                            <Breadcrumb>
-                                <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
-                                <BreadcrumbItem active>Contact Us</BreadcrumbItem>
-                            </Breadcrumb>
-                            <h2>Contact Us</h2>
-                            <hr />
-                        </div>
+                    <div className="col">
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                            <BreadcrumbItem active>Contact Us</BreadcrumbItem>
+                        </Breadcrumb>
+                        <h2>Contact Us</h2>
+                        <hr />
+                    </div>
                 </div>
-
 
                 <div className="row row-content align-items-center">
                     <div className="col-sm-4">
@@ -68,17 +68,18 @@ class Contact extends Component {
                         <a role="button" className="btn btn-link" href="mailto:fakeemail@fakeemail.co"><i className="fa fa-envelope-o" /> campsites@nucamp.co</a>
                     </div>
                 </div>
+
                 <div className="row row-content">
                     <div className="col-12">
                         <h2>Send us your Feedback</h2>
                         <hr />
                     </div>
                     <div className="col-md-10">
-                    <LocalForm onSubmit={values => this.handleSubmit(values)}>
+                        <LocalForm onSubmit={values => this.handleSubmit(values)}>
                             <Row className="form-group">
                                 <Label htmlFor="firstName" md={2}>First Name</Label>
                                 <Col md={10}>
-                                <Control.text model=".firstName" id="firstName" name="firstName"
+                                    <Control.text model=".firstName" id="firstName" name="firstName"
                                         placeholder="First Name"
                                         className="form-control"
                                         validators={{
