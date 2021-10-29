@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem,
-    Button, Modal, ModalHeader, ModalBody, Label } from 'reactstrap';
+import {
+    Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem,
+    Button, Modal, ModalHeader, ModalBody, Label
+} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 
 const maxLength = len => val => !(val) || (val.length <= len);
 const minLength = len => val => val && (val.length >= len);
 
-function RenderCampsite({campsite}) {
+function RenderCampsite({ campsite }) {
     return (
         <div className="col-md-5 m-1">
             <Card>
@@ -20,7 +23,7 @@ function RenderCampsite({campsite}) {
     );
 }
 
-function RenderComments({comments, addComment, campsiteId}) {
+function RenderComments({ comments, addComment, campsiteId }) {
     if (comments) {
         return (
             <div className="col-md-5 m-1">
@@ -31,7 +34,7 @@ function RenderComments({comments, addComment, campsiteId}) {
                             <div key={comment.id}>
                                 <p>
                                     {comment.text}<br />
-                                    -- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
+                                    -- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}
                                 </p>
                             </div>
                         );
@@ -45,7 +48,7 @@ function RenderComments({comments, addComment, campsiteId}) {
 }
 
 class CommentForm extends Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -92,10 +95,10 @@ class CommentForm extends Component {
                                 <Control.text model=".author" id="author" name="author"
                                     placeholder="Your Name"
                                     className="form-control"
-                                        validators={{
-                                            minLength: minLength(2), 
-                                            maxLength: maxLength(15)
-                                        }}
+                                    validators={{
+                                        minLength: minLength(2),
+                                        maxLength: maxLength(15)
+                                    }}
                                 />
                                 <Errors
                                     className="text-danger"
@@ -110,10 +113,10 @@ class CommentForm extends Component {
                             </div>
                             <div className="form-group">
                                 <Label htmlFor="text">Comment</Label>
-                                    <Control.textarea model=".text" id="text" name="text"
-                                        rows="6"
-                                        className="form-control"
-                                    />
+                                <Control.textarea model=".text" id="text" name="text"
+                                    rows="6"
+                                    className="form-control"
+                                />
                             </div>
                             <Button type="submit" color="primary">
                                 Submit
@@ -127,31 +130,47 @@ class CommentForm extends Component {
 }
 
 function CampsiteInfo(props) {
-    if (props.campsite) {
+    if (props.isLoading) {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col">
-                        <Breadcrumb>
-                            <BreadcrumbItem><Link to="/directory">Directory</Link></BreadcrumbItem>
-                            <BreadcrumbItem active>{props.campsite.name}</BreadcrumbItem>
-                        </Breadcrumb>
-                        <h2>{props.campsite.name}</h2>
-                        <hr />
-                    </div>
-                </div>
-                <div className="row">
-                    <RenderCampsite campsite={props.campsite} />
-                    <RenderComments 
-                        comments={props.comments}
-                        addComment={props.addComment}
-                        campsiteId={props.campsite.id}
-                    />                
+                    <Loading />
                 </div>
             </div>
         );
     }
-    return <div />;
-}
+    if (props.errMess) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <div className="col">
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    if (props.campsite) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <div className="col">
+                            <Breadcrumb>
+                                <BreadcrumbItem><Link to="/directory">Directory</Link></BreadcrumbItem>
+                                <BreadcrumbItem active>{props.campsite.name}</BreadcrumbItem>
+                            </Breadcrumb>
+                            <h2>{props.campsite.name}</h2>
+                            <hr />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <RenderCampsite campsite={props.campsite} />
+                        <RenderComments comments={props.comments} />
+                    </div>
+                </div>
+            );
+        }
+        return <div />;
+    }
 
-export default CampsiteInfo;
+    export default CampsiteInfo;
