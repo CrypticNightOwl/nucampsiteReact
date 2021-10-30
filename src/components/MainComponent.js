@@ -52,7 +52,7 @@ class Main extends Component {
             );
         }
 
-        const CampsiteWithId = ({match}) => {
+        const CampsiteWithId = ({ match }) => {
             return (
                 <CampsiteInfo
                     campsite={this.props.campsites.campsites.filter(campsite => campsite.id === +match.params.campsiteId)[0]}
@@ -61,7 +61,7 @@ class Main extends Component {
                     comments={this.props.comments.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)}
                     commentsErrMess={this.props.comments.errMess}
                     addComment={this.props.addComment}
-                />        
+                />
             );
         };
 
