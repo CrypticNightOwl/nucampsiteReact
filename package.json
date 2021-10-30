@@ -9,6 +9,7 @@
     "bootstrap": "4.5.2",
     "bootstrap-social": "5.1.1",
     "font-awesome": "4.7.0",
+    "json5": "^2.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-popper": "1.3.6",
@@ -47,5 +48,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/CrypticNightOwl/nucampsiteReact.git",
+  "author": "ErickG <erick818@gmail.com>",
+  "license": "MIT"
 }
